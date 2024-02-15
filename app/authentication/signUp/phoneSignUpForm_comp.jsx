@@ -34,25 +34,11 @@ function PhoneRegisterForm({ formData, handleChange }) {
     };
   }, [appAuth]);
 
+  const handlePhoneNumberChange = (e) => {};
 
-  const handlePhoneNumberChange = (e) => {
+  const handleOtpChange = (e) => {};
 
-
-
-  }
-
-  const handleOtpChange = (e) => {
-
-
-    
-  }
-
-
-  const handleSendOtp = (e) => {
-
-
-    
-  }
+  const handleSendOtp = (e) => {};
 
   return (
     <div className="flex flex-col gap-3">
