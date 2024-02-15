@@ -1,47 +1,69 @@
 import Button from "@/app/components/ui/button/button";
 import { appAuth } from "@/app/fireBase/firebase";
-import { RecaptchaVerifier } from "firebase/auth";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function PhoneRegisterForm({ formData, handleChange }) {
-  const [phoneNumber, setPhoneNumber] = useState(0);
-  const [otp, setOtp] = useState(0);
-  const [cofirmResult, setConfirmResult] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [otp, setOtp] = useState("");
+  const [confirmationResult, setConfirmationResult] = useState("");
   const [otpSent, setOtpSent] = useState(null);
 
-  const router = useRouter;
+  const router = useRouter();
 
   useEffect(() => {
     window.recaptchaVerifier = new RecaptchaVerifier(
       appAuth,
-      "sign-in-button",
+      "recaptcha-container",
       {
         size: "normal",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignInSubmit();
-        },
-        "expired-callback": (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignInSubmit();
-        },
+        callback: (response) => {},
+        "expired-callback": () => {},
       }
     );
-
-    return () => {
-      second;
-    };
   }, [appAuth]);
 
-  const handlePhoneNumberChange = (e) => {};
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
 
-  const handleOtpChange = (e) => {};
+  const handleOtpChange = (e) => {
+    setOtp(e.target.value);
+  };
 
-  const handleSendOtp = (e) => {};
+  const handleSendOtp = async (e) => {
+    try {
+      const formattedPhoneNumber = `+${phoneNumber.replace(/\D/g, "")}`;
+      console.log(formattedPhoneNumber);
+      const confirmation = await signInWithPhoneNumber(
+        appAuth,
+        formattedPhoneNumber,
+        window.recaptchaVerifier
+      );
+      setConfirmationResult(confirmation);
+      setOtpSent(true);
+      setPhoneNumber("");
+      alert("OTP has been sent");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleOtpSubmit = async () => {
+    try {
+      const confirm = await confirmationResult.confirm(otp);
+      console.log("here is" + confirm);
+      setOtp("");
+      router.push("/dashboard");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3">
+      {!otpSent ? <div id="recaptcha-container"></div> : null}
       <label className="block text-sm text-start font-medium text-gray-700">
         Phone Number:
       </label>
@@ -49,25 +71,14 @@ function PhoneRegisterForm({ formData, handleChange }) {
       <div className="w-full   gap-1 inline-flex">
         <input
           type="tel"
-          value={formData.phoneNumber}
-          onChange={handleChange}
+          value={phoneNumber}
+          onChange={handlePhoneNumberChange}
           autoComplete="on"
           className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
-          placeholder="Enter your phone number here"
+          placeholder="Enter number with the country code"
           required
         />
       </div>
-
-      {/* You can add more fields for name, email, etc., if needed */}
-
-      <Button
-        type="button"
-        onClick={"handleVerifyOTP"}
-        variant="inverted"
-        className=" w-full "
-      >
-        Send OTP
-      </Button>
 
       <label className="block text-sm text-start font-medium text-gray-700">
         OTP:
@@ -76,8 +87,8 @@ function PhoneRegisterForm({ formData, handleChange }) {
       <div className="w-full   gap-1 inline-flex">
         <input
           type="text"
-          value={formData.otp}
-          onChange={handleChange}
+          value={otp}
+          onChange={handleOtpChange}
           autoComplete="on"
           className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
           placeholder="Enter otp code"
@@ -85,11 +96,11 @@ function PhoneRegisterForm({ formData, handleChange }) {
       </div>
       <Button
         type="button"
-        onClick={"handleVerifyOTP"}
-        variant="inverted"
+        onClick={otpSent ? handleOtpSubmit : handleSendOtp}
+        variant={otpSent ? "secondary" : "inverted"}
         className=" w-full"
       >
-        Verify OTP
+        {otpSent ? "Verify OTP" : "Send OTP"}
       </Button>
     </div>
   );
