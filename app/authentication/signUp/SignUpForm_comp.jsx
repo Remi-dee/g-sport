@@ -18,6 +18,7 @@ function SignUp() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
+    phoneNumber: "",
     password: "",
   });
   const [showPhoneForm, setShowPhoneForm] = useState(false);
@@ -40,14 +41,12 @@ function SignUp() {
       const userCred = await handleSignUp(formDataObject);
       console.log("here is" + userCred.success);
       if (userCred.success) {
-        router.push("/?view=signin");
+        router.push("/dashboard");
       }
     } catch (error) {
-      // Handle errors if needed
       console.error("Error in handleSignUp:", error);
     }
   };
-
 
   const toggleForm = () => {
     setShowPhoneForm(!showPhoneForm);
@@ -86,7 +85,11 @@ function SignUp() {
             </div>
 
             <div className="space-y-[22px]">
-              <button type="button" onClick={toggleForm} className="flex justify-center z-20 bg-white gap-3 border border-spacing-2 mt-[22px] px-6 py-3 w-full">
+              <button
+                type="button"
+                onClick={toggleForm}
+                className="flex justify-center z-20 bg-white gap-3 border border-spacing-2 mt-[22px] px-6 py-3 w-full"
+              >
                 <div className="">
                   <Image
                     width={25}
@@ -120,11 +123,13 @@ function SignUp() {
                 />
               )}
 
-              <div>
-                <Button type="submit" variant="secondary" className=" w-full">
-                  Continue
-                </Button>
-              </div>
+              {!showPhoneForm && (
+                <div>
+                  <Button type="submit" variant="secondary" className=" w-full">
+                    Continue
+                  </Button>
+                </div>
+              )}
 
               <div className="text-start">
                 <span className="text-neutral-600 text-base font-normal  leading-tight">

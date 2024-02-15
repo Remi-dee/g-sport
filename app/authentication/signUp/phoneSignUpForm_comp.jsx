@@ -36,14 +36,13 @@ function PhoneRegisterForm({ formData, handleChange }) {
       </label>
 
       <div className="w-full   gap-1 inline-flex">
-        {" "}
         <input
           type="text"
-          value={"otp"}
-          onChange={(e) => setOtp(e.target.value)}
+          value={formData.otp}
+          onChange={handleChange}
           autoComplete="on"
           className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
-          placeholder="Enter your phone number here"
+          placeholder="Enter otp code"
         />
       </div>
       <Button
