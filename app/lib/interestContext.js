@@ -6,7 +6,7 @@ import { useContext,  createContext } from "react";
 export const InterestContext = createContext();
 
 export const InterestContextProvider = ({ children }) => {
-  const [interest, setInterest] = useState(null);
+  const [interest, setInterest] = useState([]);
 
   return (
     <InterestContext.Provider

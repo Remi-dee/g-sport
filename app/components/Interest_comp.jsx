@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import InterestButton from "./ui/button/interestButton";
 
 function InterestForm() {
   const buttonTexts = [
@@ -15,16 +16,18 @@ function InterestForm() {
 
   return (
     <div>
-      <div className="md:mt-8 mt-5 text-white text-center">
-        <p className="text-xl">Pick Your Avatar</p>
+      <div className="md:mt-8 mt-5  text-center max-w-full">
+        <p className="text-xl underline underline-offset-3 text-gray-500">
+          Pick Your Interest
+        </p>
         <p className="text-sm mb-2 md:mb-6">
-          To get the best experience, choose at least{" "}
+          Enjoy the best experience, choose at least{" "}
           <span className="text-[#FD429C]">4 </span>
           sports that <br /> interest you
         </p>
-        <div className="space-x-3 space-y-2 md:space-x-5 md:space-y-3 w-full">
+        <div className="grid grid-cols-2 space-x-3 space-y-2 md:space-x-5 md:space-y-3   ">
           {buttonTexts.map((buttonText, index) => (
-            <button key={index}>{buttonText}</button>
+            <InterestButton key={index} buttonText={buttonText} />
           ))}
         </div>
       </div>

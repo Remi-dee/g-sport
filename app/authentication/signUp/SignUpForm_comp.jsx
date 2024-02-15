@@ -25,7 +25,7 @@ function SignUp() {
   });
   const [showPhoneForm, setShowPhoneForm] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const { interest, setInterest } = useInterestContext();
+  const { interest,  } = useInterestContext();
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -70,7 +70,7 @@ function SignUp() {
             alt=""
           />
         </div>
-        <div className="flex flex-col w-[500px] relative py-8 h-[650px] bg-white items-center ">
+        <div className="flex flex-col w-[420px] relative py-8 px-6 h-[650px] bg-white items-center ">
           <div className=" text-center ">
             <div className="gap-[5px] ">
               <div className=" h-12 flex items-center justify-center ">
@@ -91,14 +91,14 @@ function SignUp() {
             </div>
 
             <div className="space-y-[22px]">
-              {isRegistered && !interest ? (
+              {isRegistered ? (
                 <InterestForm />
               ) : (
                 <>
                   <button
                     type="button"
                     onClick={toggleForm}
-                    className="flex justify-center z-20 bg-white gap-3 border border-spacing-2 mt-[22px] px-6 py-3 w-full"
+                    className="flex justify-center z-20 bg-white gap-3 border border-spacing-2 mt-[22px]  py-3 w-full"
                   >
                     <div className="">
                       <Image
@@ -137,8 +137,12 @@ function SignUp() {
                 </>
               )}
               {!showPhoneForm && (
-                <div>
-                  <Button type="submit" variant="secondary" className=" w-full">
+                <div className="">
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className=" w-full "
+                  >
                     {isRegistered ? "Continue" : "Next"}
                   </Button>
                 </div>
