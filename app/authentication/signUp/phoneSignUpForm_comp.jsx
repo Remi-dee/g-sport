@@ -1,4 +1,4 @@
-import Button from "@/app/components/ui/button/button";
+import Button from "@/app/components/ui/button/Button";
 import { appAuth } from "@/app/fireBase/firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -33,6 +33,7 @@ function PhoneRegisterForm({ formData, handleChange }) {
   };
 
   const handleSendOtp = async (e) => {
+    e.preventDefault();
     try {
       const formattedPhoneNumber = `+${phoneNumber.replace(/\D/g, "")}`;
       console.log(formattedPhoneNumber);

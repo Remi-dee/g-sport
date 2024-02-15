@@ -9,9 +9,11 @@ import { useState } from "react";
 import { handleSignUp } from "./util/handleSignup";
 
 import { useRouter } from "next/navigation";
-import Button from "@/app/components/ui/button/button";
-import EmailRegisterForm from "./emailSignUpForm_comp";
-import PhoneRegisterForm from "./phoneSignUpForm_comp";
+import Button from "@/app/components/ui/button/Button";
+import EmailRegisterForm from "./EmailSignUpForm_comp";
+import PhoneRegisterForm from "./PhoneSignUpForm_comp";
+import { useInterestContext } from "@/app/lib/interestContext";
+import InterestForm from "@/app/components/Interest_comp";
 
 function SignUp() {
   const router = useRouter();
@@ -22,6 +24,8 @@ function SignUp() {
     password: "",
   });
   const [showPhoneForm, setShowPhoneForm] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const { interest, setInterest } = useInterestContext();
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -36,12 +40,14 @@ function SignUp() {
       email: formData.email,
       password: formData.password,
     };
-
+    if (isRegistered && interest) {
+      router.push("/dashboard");
+    }
     try {
       const userCred = await handleSignUp(formDataObject);
       console.log("here is" + userCred.success);
       if (userCred.success) {
-        router.push("/dashboard");
+        setIsRegistered(true);
       }
     } catch (error) {
       console.error("Error in handleSignUp:", error);
@@ -54,7 +60,7 @@ function SignUp() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex pb-4 relative font-lexend ">
+      <div className="flex pb-4 relative  ">
         <div className="">
           <Image
             width={392}
@@ -80,53 +86,60 @@ function SignUp() {
                 Welcome to M-Sport
               </div>
               <div className=" text-center text-neutral-600 text-base font-normal  leading-tight">
-                Unleash the Champion Within
+                Unleash the Champion Within🤾
               </div>
             </div>
 
             <div className="space-y-[22px]">
-              <button
-                type="button"
-                onClick={toggleForm}
-                className="flex justify-center z-20 bg-white gap-3 border border-spacing-2 mt-[22px] px-6 py-3 w-full"
-              >
-                <div className="">
-                  <Image
-                    width={25}
-                    height={25}
-                    alt="Sign in with Google"
-                    src={google}
-                  />
-                </div>
-                <div className="text-black text-lg font-normal leading-snug">
-                  {showPhoneForm ? "Sign up with Email" : "Sign up with Phone"}
-                </div>
-              </button>
-
-              <div className="w-80 h-[19px] items-center  gap-3 inline-flex">
-                <div className="w-[136px] h-[0px] rotate-180 border border-neutral-300"></div>
-                <div className="text-black text-base font-normal  leading-tight">
-                  OR
-                </div>
-                <div className="w-[136px] h-[0px]  rotate-180 border border-neutral-300"></div>
-              </div>
-
-              {showPhoneForm ? (
-                <PhoneRegisterForm
-                  formData={formData}
-                  handleChange={handleChange}
-                />
+              {isRegistered && !interest ? (
+                <InterestForm />
               ) : (
-                <EmailRegisterForm
-                  formData={formData}
-                  handleChange={handleChange}
-                />
-              )}
+                <>
+                  <button
+                    type="button"
+                    onClick={toggleForm}
+                    className="flex justify-center z-20 bg-white gap-3 border border-spacing-2 mt-[22px] px-6 py-3 w-full"
+                  >
+                    <div className="">
+                      <Image
+                        width={25}
+                        height={25}
+                        alt="Sign in with Google"
+                        src={google}
+                      />
+                    </div>
+                    <div className="text-black text-lg font-normal leading-snug">
+                      {showPhoneForm
+                        ? "Sign up with Email"
+                        : "Sign up with Phone"}
+                    </div>
+                  </button>
 
+                  <div className="w-80 h-[19px] items-center  gap-3 inline-flex">
+                    <div className="w-[136px] h-[0px] rotate-180 border border-neutral-300"></div>
+                    <div className="text-black text-base font-normal  leading-tight">
+                      OR
+                    </div>
+                    <div className="w-[136px] h-[0px]  rotate-180 border border-neutral-300"></div>
+                  </div>
+
+                  {showPhoneForm ? (
+                    <PhoneRegisterForm
+                      formData={formData}
+                      handleChange={handleChange}
+                    />
+                  ) : (
+                    <EmailRegisterForm
+                      formData={formData}
+                      handleChange={handleChange}
+                    />
+                  )}
+                </>
+              )}
               {!showPhoneForm && (
                 <div>
                   <Button type="submit" variant="secondary" className=" w-full">
-                    Continue
+                    {isRegistered ? "Continue" : "Next"}
                   </Button>
                 </div>
               )}
@@ -144,15 +157,6 @@ function SignUp() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="bg-white absolute top-0 left-0 w-[40px] h-12 z-20 flex items-center justify-center rounded-tl-[30px] ">
-          <Image
-            width={null}
-            height={null}
-            alt="Sign in with Google"
-            src={arrowBack}
-            className="w-[10px] h-[25px]"
-          />
         </div>
       </div>
     </form>

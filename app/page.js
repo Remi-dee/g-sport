@@ -9,15 +9,15 @@ import { appAuth } from "./fireBase/firebase";
 export default function Home() {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState("")
-  useEffect(() => {
-    onAuthStateChanged(appAuth, (user) => {
-      setCurrentUser(user);
+  // useEffect(() => {
+  //   onAuthStateChanged(appAuth, (user) => {
+  //     setCurrentUser(user);
 
-      if (user) {
-        router.push("/dashboard");
-      }
-    });
-  }, [router, appAuth]);
+  //     if (user) {
+  //       router.push("/dashboard");
+  //     }
+  //   });
+  // }, [router, appAuth]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
