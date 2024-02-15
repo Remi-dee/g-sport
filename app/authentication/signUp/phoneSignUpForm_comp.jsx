@@ -1,7 +1,59 @@
 import Button from "@/app/components/ui/button/button";
+import { appAuth } from "@/app/fireBase/firebase";
+import { RecaptchaVerifier } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function PhoneRegisterForm({ formData, handleChange }) {
+  const [phoneNumber, setPhoneNumber] = useState(0);
+  const [otp, setOtp] = useState(0);
+  const [cofirmResult, setConfirmResult] = useState(0);
+  const [otpSent, setOtpSent] = useState(null);
+
+  const router = useRouter;
+
+  useEffect(() => {
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      appAuth,
+      "sign-in-button",
+      {
+        size: "normal",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignInSubmit();
+        },
+        "expired-callback": (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignInSubmit();
+        },
+      }
+    );
+
+    return () => {
+      second;
+    };
+  }, [appAuth]);
+
+
+  const handlePhoneNumberChange = (e) => {
+
+
+
+  }
+
+  const handleOtpChange = (e) => {
+
+
+    
+  }
+
+
+  const handleSendOtp = (e) => {
+
+
+    
+  }
+
   return (
     <div className="flex flex-col gap-3">
       <label className="block text-sm text-start font-medium text-gray-700">
