@@ -1,7 +1,5 @@
 function signupFormValidation(user) {
-  const errors = {
-  
-  };
+  const errors = {};
 
   const regxEmail = /^([a-zA-Z0-9\.]+)@([a-zA-Z]+)\.([a-z]+)(\.[a-z]+)?$/;
   const trimmedEmail = user.email.trim();
@@ -29,12 +27,6 @@ function signupFormValidation(user) {
   } else if (!regxPassword.test(trimmedPassword)) {
     errors.password =
       "Password must contain one digit, one lowercase letter, one uppercase letter, and one special character";
-  }
-
-  if (!user.confirm_password) {
-    errors.confirm_password = "Please confirm your password";
-  } else if (user.password !== user.confirm_password) {
-    errors.confirm_password = "Passwords do not match";
   }
 
   return errors;
