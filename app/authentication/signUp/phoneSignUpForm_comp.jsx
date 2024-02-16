@@ -48,7 +48,7 @@ function PhoneRegisterForm({ formData, handleChange }) {
       alert("OTP has been sent");
     } catch (error) {
       console.error(error);
-      alert(error)
+      alert(error);
     }
   };
 
@@ -57,10 +57,10 @@ function PhoneRegisterForm({ formData, handleChange }) {
       const confirm = await confirmationResult.confirm(otp);
       console.log("here is" + confirm);
       setOtp("");
-      router.push("/dashboard");
+      router.push("/profile");
     } catch (error) {
       console.error(error);
-      alert(error)
+      alert(error);
     }
   };
 

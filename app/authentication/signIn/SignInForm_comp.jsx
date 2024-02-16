@@ -39,7 +39,7 @@ function SignIn() {
       const userCred = await handleSignIn(formDataObject);
       console.log("here is" + userCred.success);
       if (userCred.success) {
-        router.push("/dashboard");
+        router.push("/profile");
       }
     } catch (error) {
       // Handle errors if needed

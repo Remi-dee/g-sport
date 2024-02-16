@@ -1,9 +1,29 @@
-// components/Navigation.js
-import Link from 'next/link';
+"use client";
 
-const Navigation = () => {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+function Navigation() {
+  const router = useRouter();
+
+  const isProfileActive = router.pathname === "/profile";
+
+  function NavLink({ href, children, isActive }) {
+    return (
+      <Link href={href}>
+        <span
+          className={`text-white hover:text-gray-300 ${
+            isActive ? "font-bold" : ""
+          }`}
+        >
+          {children}
+        </span>
+      </Link>
+    );
+  }
+
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 backdrop-blur-md">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white font-bold text-xl">
           <Link href="/">
@@ -11,20 +31,13 @@ const Navigation = () => {
           </Link>
         </div>
         <div className="flex space-x-4">
-          <NavLink href="/profile">Profile</NavLink>
-          <NavLink href="/buddies">Buddies</NavLink>
-          <NavLink href="/discover">Discover</NavLink>
-          <NavLink href="/settings">Settings</NavLink>
+          <NavLink href="/profile" isActive={isProfileActive}>
+            Profile
+          </NavLink>
         </div>
       </div>
     </nav>
   );
-};
-
-const NavLink = ({ href, children }) => (
-  <Link href={href}>
-    <span className="text-white hover:text-gray-300">{children}</span>
-  </Link>
-);
+}
 
 export default Navigation;

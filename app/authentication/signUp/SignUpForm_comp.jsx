@@ -43,7 +43,7 @@ function SignUp() {
       password: formData.password,
     };
     if (isRegistered && interest) {
-      router.push("/dashboard");
+      router.push("/profile");
       return;
     }
 

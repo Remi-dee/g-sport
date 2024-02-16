@@ -15,7 +15,7 @@ export default function Home() {
   //     setCurrentUser(user);
 
   //     if (user) {
-  //       router.push("/dashboard");
+  //       router.push("/profile");
   //     }
   //   });
   // }, [router, appAuth]);
