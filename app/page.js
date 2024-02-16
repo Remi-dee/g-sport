@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { appAuth } from "./fireBase/firebase";
+import Authentication from "./authentication/authentication";
 
 export default function Home() {
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState("")
+  const [currentUser, setCurrentUser] = useState("");
   // useEffect(() => {
   //   onAuthStateChanged(appAuth, (user) => {
   //     setCurrentUser(user);
@@ -22,6 +23,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <SignUp />
+      <Authentication />
     </main>
   );
 }

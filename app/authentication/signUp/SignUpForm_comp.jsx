@@ -83,7 +83,7 @@ function SignUp() {
                 />
               </div>
               <div className="text-black text-center text-[32px] font-medium leading-10">
-                Welcome to M-Sport
+                Welcome to G-Sport
               </div>
               <div className=" text-center text-neutral-600 text-base font-normal  leading-tight">
                 Unleash the Champion Within🤾
@@ -153,7 +153,7 @@ function SignUp() {
                   Already a member?
                 </span>
 
-                <Link href="#">
+                <Link href="/?view=signin">
                   <span className="text-neutral-600 text-base font-normal underline leading-tight">
                     Login
                   </span>
