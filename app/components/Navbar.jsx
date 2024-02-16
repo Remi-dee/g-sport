@@ -1,20 +1,19 @@
-"use client";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function Navigation() {
   const router = useRouter();
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "";
+  const isProfileActive = currentPath === "/profile";
 
-  const isProfileActive = router.pathname === "/profile";
-  console.log(router.pathname)
   function NavLink({ href, children, isActive }) {
-   console.log(isProfileActive)
+    console.log(isProfileActive);
     return (
       <Link href={href}>
         <span
-          className={` hover:text-gray-300 ${
-            isActive ? "font-bold text-black " : ""
+          className={` hover:text-gray-500 ${
+            isActive ? "font-normal text-white " : "text-gray-300"
           }`}
         >
           {children}
@@ -24,12 +23,13 @@ function Navigation() {
   }
 
   return (
-    <nav className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 backdrop-blur-md">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className=" bg-gradient-to-r from-gray-500 to-pink-400 p-4 backdrop-blur-md">
+      <div className=" container mx-auto flex  justify-between items-center">
         <div className="text-white font-bold text-xl">
-          <Link href="/">Logo</Link>
+          <Link href="/">G-Sport</Link>
         </div>
         <div className="flex space-x-4">
+          {/* Display for larger screens (computer) */}
           <NavLink href="/profile" isActive={isProfileActive}>
             Profile
           </NavLink>
@@ -42,8 +42,8 @@ function Navigation() {
           <NavLink href="/settings" isActive={router.pathname === "/settings"}>
             Settings & Privacy
           </NavLink>
-          {/* Add other navigation links as needed */}
         </div>
+        
       </div>
     </nav>
   );
