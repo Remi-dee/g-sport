@@ -1,6 +1,9 @@
 import { appAuth, firebaseConfig } from "@/app/fireBase/firebase";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 
 const handleSignUp = async ({ email, password }) => {
   try {
@@ -11,21 +14,25 @@ const handleSignUp = async ({ email, password }) => {
       password
     );
     const user = userCredential.user;
+    await handleEmailVerification(user);
+
     console.log("User signed up:", user);
     return { success: true, user };
   } catch (error) {
     console.error("Error signing up:", error.message);
+    alert(`Error signing up:, ${error.message}`);
     return { success: false, error: error.message };
   }
 };
 
 export { handleSignUp };
 
-
-const sendEmailVerification = async (user) => {
+const handleEmailVerification = async (user) => {
   try {
     await sendEmailVerification(user);
-    console.log("Verification email sent.");
+    alert(
+      "Registration successful! Please check your email for verification after which you can pick your interests."
+    );
   } catch (error) {
     console.error("Error sending verification email:", error.message);
   }
