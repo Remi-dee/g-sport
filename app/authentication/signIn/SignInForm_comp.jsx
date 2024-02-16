@@ -73,7 +73,7 @@ function SignIn() {
                   />
                 </div>
                 <div className="text-black text-lg font-normal leading-snug ">
-                  Sign in with Google
+                  Sign in with Phone
                 </div>
               </div>
 

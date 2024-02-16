@@ -4,12 +4,14 @@ import google from "../../../public/icons/Google.png";
 import Button from "@/app/components/ui/button/Button";
 import { useState } from "react";
 import { handlePasswordReset } from "./util/forgotPassword";
+import { useRouter } from "next/navigation";
 
 function ForgotPassword() {
   const [formData, setFormData] = useState({
     email: "",
   });
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -26,7 +28,7 @@ function ForgotPassword() {
 
     try {
       const emailSent = await handlePasswordReset(formDataObject.email);
-      console.log("here is" + emailSent.success);
+      if (emailSent.success) setIsEmailSent(true);
     } catch (error) {
       console.error("Error sending email:", error);
       return { success: false, error: error.message };
@@ -42,7 +44,7 @@ function ForgotPassword() {
               <div className="text-black text-center text-[32px] font-medium leading-10">
                 Forgot Password
               </div>
-              <div className=" text-center text-neutral-600 text-base font-normal  leading-tight">
+              <div className=" text-center text-neutral-600 text-base font-normal  leading-tight max-w-[90%] mx-auto mt-1">
                 {isEmailSent
                   ? "Reset your password with the link sent to your email and sign in with your new password"
                   : "Enter your email to reset your password"}
@@ -52,7 +54,6 @@ function ForgotPassword() {
             <div className="space-y-[32px]">
               {!isEmailSent && (
                 <>
-                  {" "}
                   <div className="flex flex-col gap-3 pt-6">
                     <div className="flex flex-col gap-1">
                       <label
@@ -112,11 +113,11 @@ function ForgotPassword() {
               {isEmailSent && (
                 <Button
                   type="button"
-                  onClick={p}
+                  onClick={() => router.push("/?view=signin")}
                   variant="secondary"
-                  className=" w-full"
+                  className=" w-full  max-w-[90%] mx-auto mt-5"
                 >
-                  {otpSent ? "Verify OTP" : "Send OTP"}
+                  Sign In
                 </Button>
               )}
             </div>
