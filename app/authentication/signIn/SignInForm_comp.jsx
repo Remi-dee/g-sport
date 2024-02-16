@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import google from "@/public/icons/Google.png";
+import Phone from "../../../public/assests/icons/Phone.png";
 
 import waterMark from "@/public/icons/waterMark.png";
 import { handleSignIn } from "./util/handleSignin";
@@ -80,7 +80,7 @@ function SignIn() {
                     width={25}
                     height={25}
                     alt="Sign in with Google"
-                    src={google}
+                    src={phone}
                   />
                 </div>
                 <div className="text-black text-lg font-normal leading-snug">

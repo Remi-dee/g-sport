@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import google from "../../../public/icons/Google.png";
+
 import Button from "@/app/components/ui/button/Button";
 import { useState } from "react";
 import { handlePasswordReset } from "./util/forgotPassword";

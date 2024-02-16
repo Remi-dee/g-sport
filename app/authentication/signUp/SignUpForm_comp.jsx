@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import sideImage from "@/public/images/backgrounds/signupBackground.png";
-import google from "@/public/icons/Google.png";
-import arrowBack from "@/public/icons/arrowBack.png";
+import Phone from "../../../public/assests/icons/Phone.png";
+
 
 import waterMark from "@/public/icons/waterMark.png";
 import { useState } from "react";
@@ -123,7 +123,7 @@ function SignUp() {
                         width={25}
                         height={25}
                         alt="Sign in with Google"
-                        src={google}
+                        src={Phone}
                       />
                     </div>
                     <div className="text-black text-lg font-normal leading-snug">
