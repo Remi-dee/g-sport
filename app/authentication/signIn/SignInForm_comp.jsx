@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Phone from "../../../public/assests/icons/Phone.png";
 
-import waterMark from "@/public/icons/waterMark.png";
+import waterMark from "@/public/assests/icons/waterMark.png";
 import { handleSignIn } from "./util/handleSignin";
 import { useState } from "react";
 
@@ -80,7 +80,7 @@ function SignIn() {
                     width={25}
                     height={25}
                     alt="Sign in with Google"
-                    src={phone}
+                    src={Phone}
                   />
                 </div>
                 <div className="text-black text-lg font-normal leading-snug">

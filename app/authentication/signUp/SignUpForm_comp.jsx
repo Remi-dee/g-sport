@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import sideImage from "@/public/images/backgrounds/signupBackground.png";
+import sideImage from "@/public/assests/images/backgrounds/slideImage2.jpg";
 import Phone from "../../../public/assests/icons/Phone.png";
 
-
-import waterMark from "@/public/icons/waterMark.png";
+import WaterMark from "@/public/assests/icons/waterMark.png";
 import { useState } from "react";
 import { handleSignUp } from "./util/handleSignup";
 
@@ -78,25 +77,25 @@ function SignUp() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex pb-4 relative  ">
+      <div className="flex pb-4 relative rounded-[30px]">
         <div className="">
           <Image
-            width={392}
-            height={736}
-            className="w-[350px] h-[650px]"
+            width={null}
+            height={null}
+            className="w-[400px] h-[650px] rounded-[30px]"
             src={sideImage}
             alt=""
           />
         </div>
-        <div className="flex flex-col w-[420px] relative py-8 px-6 h-[650px] bg-white items-center ">
+        <div className="flex flex-col w-[420px] relative py-8 px-6 h-[650px] bg-white items-center rounded-[30px]">
           <div className=" text-center ">
             <div className="gap-[5px] ">
               <div className=" h-12 flex items-center justify-center ">
                 <Image
-                  width={60}
+                  width={50}
                   height={50}
                   alt="Sign in with Google"
-                  src={waterMark}
+                  src={WaterMark}
                   className=""
                 />
               </div>
