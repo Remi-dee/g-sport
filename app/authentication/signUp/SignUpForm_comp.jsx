@@ -14,6 +14,7 @@ import EmailRegisterForm from "./EmailSignUpForm_comp";
 import PhoneRegisterForm from "./PhoneSignUpForm_comp";
 import { useInterestContext } from "@/app/lib/interestContext";
 import InterestForm from "@/app/components/Interest_comp";
+import { signupFormValidation } from "./util/signupFormValidation";
 
 function SignUp() {
   const router = useRouter();
@@ -37,20 +38,36 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataObject = {
+      username: formData.username,
       email: formData.email,
       password: formData.password,
     };
     if (isRegistered && interest) {
       router.push("/dashboard");
     }
-    try {
-      const userCred = await handleSignUp(formDataObject);
-      console.log("here is" + userCred.success);
-      if (userCred.success) {
-        setIsRegistered(true);
+
+    const formErrors = signupFormValidation(formDataObject);
+
+    if (Object.keys(formErrors).length === 0) {
+      try {
+        const userCred = await handleSignUp(formDataObject);
+        console.log("here is" + userCred.success);
+        if (userCred.success) {
+          setIsRegistered(true);
+        }
+      } catch (error) {
+        console.error("Error in handleSignUp:", error);
       }
-    } catch (error) {
-      console.error("Error in handleSignUp:", error);
+    } else {
+      const alertMessage = [
+        formErrors.username && `Username: ${formErrors.username}`,
+        formErrors.email && `Email: ${formErrors.email}`,
+        formErrors.password && `Password: ${formErrors.password}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      alert(alertMessage);
     }
   };
 
