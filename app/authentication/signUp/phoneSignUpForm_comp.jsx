@@ -48,6 +48,7 @@ function PhoneRegisterForm({ formData, handleChange }) {
       alert("OTP has been sent");
     } catch (error) {
       console.error(error);
+      alert(error)
     }
   };
 
@@ -59,42 +60,51 @@ function PhoneRegisterForm({ formData, handleChange }) {
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
+      alert(error)
     }
   };
 
   return (
     <div className="flex flex-col gap-3">
-      {!otpSent ? <div id="recaptcha-container"></div> : null}
-      <label className="block text-sm text-start font-medium text-gray-700">
-        Phone Number:
-      </label>
-
-      <div className="w-full   gap-1 inline-flex">
-        <input
-          type="tel"
-          value={phoneNumber}
-          onChange={handlePhoneNumberChange}
-          autoComplete="on"
-          className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
-          placeholder="Enter number with the country code"
-          required
-        />
-      </div>
-
-      <label className="block text-sm text-start font-medium text-gray-700">
-        OTP:
-      </label>
-
-      <div className="w-full   gap-1 inline-flex">
-        <input
-          type="text"
-          value={otp}
-          onChange={handleOtpChange}
-          autoComplete="on"
-          className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
-          placeholder="Enter otp code"
-        />
-      </div>
+      {!otpSent ? (
+        <div id="recaptcha-container" className="w-full"></div>
+      ) : null}
+      {!otpSent ? (
+        <>
+          {" "}
+          <label className="block text-sm text-start font-medium text-gray-700">
+            Phone Number:
+          </label>
+          <div className="w-full   gap-1 inline-flex">
+            <input
+              type="tel"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              autoComplete="on"
+              className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
+              placeholder="Enter number with the country code"
+              required
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <label className="block text-sm text-start font-medium text-gray-700">
+            OTP:
+          </label>
+          <div className="w-full   gap-1 inline-flex">
+            <input
+              type="text"
+              value={otp}
+              onChange={handleOtpChange}
+              autoComplete="on"
+              className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
+              placeholder="Enter otp code"
+            />
+          </div>
+        </>
+      )}
       <Button
         type="button"
         onClick={otpSent ? handleOtpSubmit : handleSendOtp}

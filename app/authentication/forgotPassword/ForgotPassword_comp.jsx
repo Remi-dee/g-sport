@@ -87,26 +87,6 @@ function ForgotPassword() {
                       Continue
                     </Button>
                   </div>
-                  <div className="w-80 h-[19px] items-center justify-center  gap-3 inline-flex">
-                    <div className="w-[130px] h-[0px] rotate-180 border border-neutral-300"></div>
-                    <div className="text-black text-base font-normal  leading-tight">
-                      OR
-                    </div>
-                    <div className="w-[130px] h-[0px]  rotate-180 border border-neutral-300"></div>
-                  </div>
-                  <div className="flex justify-center gap-3 border border-spacing-2 mt-[22px] px-6 py-3">
-                    <div className="">
-                      <Image
-                        width={25}
-                        height={25}
-                        alt="Sign in with Google"
-                        src={google}
-                      />
-                    </div>
-                    <div className="text-black text-lg font-normal leading-snug ">
-                      Sign in with Phone
-                    </div>
-                  </div>{" "}
                 </>
               )}
 
