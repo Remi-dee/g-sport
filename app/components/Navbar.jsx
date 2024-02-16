@@ -7,13 +7,14 @@ function Navigation() {
   const router = useRouter();
 
   const isProfileActive = router.pathname === "/profile";
-
+  console.log(router.pathname)
   function NavLink({ href, children, isActive }) {
+   console.log(isProfileActive)
     return (
       <Link href={href}>
         <span
-          className={`text-white hover:text-gray-300 ${
-            isActive ? "font-bold" : ""
+          className={` hover:text-gray-300 ${
+            isActive ? "font-bold text-black " : ""
           }`}
         >
           {children}
@@ -26,14 +27,22 @@ function Navigation() {
     <nav className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 backdrop-blur-md">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white font-bold text-xl">
-          <Link href="/">
-            Logo
-          </Link>
+          <Link href="/">Logo</Link>
         </div>
         <div className="flex space-x-4">
           <NavLink href="/profile" isActive={isProfileActive}>
             Profile
           </NavLink>
+          <NavLink href="/buddies" isActive={router.pathname === "/buddies"}>
+            Buddies
+          </NavLink>
+          <NavLink href="/discover" isActive={router.pathname === "/discover"}>
+            Discover
+          </NavLink>
+          <NavLink href="/settings" isActive={router.pathname === "/settings"}>
+            Settings & Privacy
+          </NavLink>
+          {/* Add other navigation links as needed */}
         </div>
       </div>
     </nav>
