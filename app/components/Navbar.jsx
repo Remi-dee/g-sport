@@ -12,8 +12,8 @@ function Navigation() {
     return (
       <Link href={href}>
         <span
-          className={` hover:text-gray-500 ${
-            isActive ? "font-normal text-white " : "text-gray-300"
+          className={` hover:text-gray-300 ${
+            isActive ? "font-normal text-white " : "text-gray-500"
           }`}
         >
           {children}
@@ -23,7 +23,7 @@ function Navigation() {
   }
 
   return (
-    <nav className=" bg-gradient-to-r from-gray-500 to-pink-400 p-4 backdrop-blur-md">
+    <nav className=" bg-gradient-to-r from-gray-500 to-pink-200 p-4 backdrop-blur-md  bg-opacity-100 ">
       <div className=" container mx-auto flex  justify-between items-center">
         <div className="text-white font-bold text-xl">
           <Link href="/">G-Sport</Link>
@@ -43,7 +43,6 @@ function Navigation() {
             Settings & Privacy
           </NavLink>
         </div>
-        
       </div>
     </nav>
   );

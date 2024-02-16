@@ -1,6 +1,7 @@
 // components/Profile.js
 import Image from "next/image";
 import Oval from "../../public/assests/avatars/Oval.png";
+import Cover from "../../public/assests/images/backgrounds/ProfileCover.jpg";
 const Profile = () => {
   // Replace these dummy data with actual user data fetched from your database
   const userData = {
@@ -11,9 +12,13 @@ const Profile = () => {
 
   return (
     <div>
-      {/* Cover Picture */}
-      <div className="relative -z-10 h-36 bg-gradient-to-r from-blue-500 to-purple-500 ">
-        {/* You can add content, text, or other elements here */}
+      <div className="relative -z-10 h-36 bg-gradient-to-r  overflow-hidden">
+        <Image
+          src={Cover}
+          alt="Profile Picture"
+          layout="fill" // Use layout="fill" to make the image cover the entire container
+          objectFit="cover" // Use objectFit="cover" to maintain aspect ratio and cover the container
+        />
       </div>
 
       <div className="container mx-auto p-8 bg-white rounded shadow-lg -mt-16">
