@@ -44,6 +44,7 @@ function SignUp() {
     };
     if (isRegistered && interest) {
       router.push("/dashboard");
+      return;
     }
 
     const formErrors = signupFormValidation(formDataObject);
