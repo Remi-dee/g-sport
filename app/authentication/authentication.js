@@ -3,6 +3,7 @@ import SignIn from "./signIn/SignInForm_comp";
 import { Modal } from "../lib/modal/modal";
 import ForgotPassword from "./forgotPassword/ForgotPassword_comp";
 
+
 function Authentication() {
   const view = useSearchParams().get("view");
   const router = useRouter();

@@ -1,11 +1,40 @@
 import Image from "next/image";
-import Link from "next/link";
+
 import google from "../../../public/icons/Google.png";
 import Button from "@/app/components/ui/button/Button";
+import { useState } from "react";
+import { handlePasswordReset } from "./util/forgotPassword";
 
 function ForgotPassword() {
+  const [formData, setFormData] = useState({
+    email: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formDataObject = {
+      email: formData.email,
+    };
+
+    try {
+      const emailSent = await handlePasswordReset(formDataObject.email);
+      console.log("here is" + emailSent.success);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      return { success: false, error: error.message };
+    }
+
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="flex pb-4 relative font-lexend">
         <div className="flex flex-col w-[439px]  py-[60px] h-auto bg-white items-center ">
           <div className=" text-center ">
@@ -32,6 +61,8 @@ function ForgotPassword() {
                     <input
                       name="email"
                       required
+                      value={formData.email}
+                      onChange={handleChange}
                       id="email"
                       type="text"
                       autoComplete="on"
@@ -43,7 +74,7 @@ function ForgotPassword() {
               </div>
 
               <div>
-                <Button variant="secondary" className=" w-full">
+                <Button type = "submit" variant="secondary" className=" w-full">
                   Continue
                 </Button>
               </div>
@@ -65,7 +96,7 @@ function ForgotPassword() {
                   />
                 </div>
                 <div className="text-black text-lg font-normal leading-snug ">
-                  Sign up with Phone
+                  Sign in with Phone
                 </div>
               </div>
             </div>
