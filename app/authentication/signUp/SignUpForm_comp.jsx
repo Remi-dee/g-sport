@@ -25,7 +25,7 @@ function SignUp() {
   });
   const [showPhoneForm, setShowPhoneForm] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const { interest,  } = useInterestContext();
+  const { interest } = useInterestContext();
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -65,7 +65,7 @@ function SignUp() {
           <Image
             width={392}
             height={736}
-            className="w-[350px] h-[650px] rounded-tl-[30px]"
+            className="w-[350px] h-[650px]"
             src={sideImage}
             alt=""
           />
