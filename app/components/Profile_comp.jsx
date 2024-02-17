@@ -2,8 +2,12 @@
 import Image from "next/image";
 import Oval from "../../public/assests/avatars/Oval.png";
 import Cover from "../../public/assests/images/backgrounds/ProfileCover.jpg";
+import Settings from "./Settings_comp";
+import { usestatetContext } from "../lib/stateContext";
 const Profile = () => {
   // Replace these dummy data with actual user data fetched from your database
+  const { settings, setSettings } = usestatetContext();
+
   const userData = {
     username: "JohnDoe",
     phoneNumber: "123-456-7890",
@@ -22,34 +26,41 @@ const Profile = () => {
       </div>
 
       <div className="container mx-auto p-8 bg-white rounded shadow-lg -mt-16">
-        <div className="flex justify-center mb-6">
-          {/* Replace the src with the URL of the actual profile picture */}
-          <Image
-            src={Oval}
-            alt="Profile Picture"
-            width={150}
-            height={150}
-            className="rounded-full"
-          />
-        </div>
-        <div className="text-center">
-          {/* Replace these dummy data with actual user data */}
-          <h2 className="text-2xl font-bold">{userData.username}</h2>
-          <p className="text-gray-600">{userData.phoneNumber}</p>
-        </div>
-        <div className="mt-6">
-          <h3 className="text-lg font-semibold mb-2">Interests</h3>
-          <ul className="flex flex-wrap gap-2">
-            {userData.interests.map((interest, index) => (
-              <li
-                key={index}
-                className="bg-gray-200 px-2 py-1 rounded text-sm text-gray-700"
-              >
-                {interest}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {!settings && (
+          <>
+            {" "}
+            <div className="flex justify-center mb-6">
+              {/* Replace the src with the URL of the actual profile picture */}
+              <Image
+                src={Oval}
+                alt="Profile Picture"
+                width={150}
+                height={150}
+                className="rounded-full"
+              />
+            </div>
+            <div className="text-center">
+              {/* Replace these dummy data with actual user data */}
+              <h2 className="text-2xl font-bold">{userData.username}</h2>
+              <p className="text-gray-600">{userData.phoneNumber}</p>
+            </div>
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-2">Interests</h3>
+              <ul className="flex flex-wrap gap-2">
+                {userData.interests.map((interest, index) => (
+                  <li
+                    key={index}
+                    className="bg-gray-200 px-2 py-1 rounded text-sm text-gray-700"
+                  >
+                    {interest}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
+
+        {settings && <Settings />}
       </div>
     </div>
   );

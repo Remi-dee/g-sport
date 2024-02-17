@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { usestatetContext } from "../lib/stateContext";
 
 function Navigation() {
   const router = useRouter();
   const currentPath =
     typeof window !== "undefined" ? window.location.pathname : "";
   const isProfileActive = currentPath === "/profile";
+  const {settings, setSettings} = usestatetContext()
 
-  function NavLink({ href, children, isActive }) {
+  function NavLink({ handleClick, children, isActive }) {
     console.log(isProfileActive);
     return (
-      <Link href={href}>
+      <button onClick={handleClick}>
         <span
           className={` hover:text-gray-300 ${
             isActive ? "font-normal text-white " : "text-gray-500"
@@ -18,7 +20,7 @@ function Navigation() {
         >
           {children}
         </span>
-      </Link>
+      </button>
     );
   }
 
@@ -30,16 +32,18 @@ function Navigation() {
         </div>
         <div className="flex space-x-4">
           {/* Display for larger screens (computer) */}
-          <NavLink href="/profile" isActive={isProfileActive}>
+          <NavLink
+            handleClick={() => setSettings(false)}
+            isActive={isProfileActive}
+          >
             Profile
           </NavLink>
-          <NavLink href="/buddies" isActive={router.pathname === "/buddies"}>
-            Buddies
-          </NavLink>
-          <NavLink href="/discover" isActive={router.pathname === "/discover"}>
-            Discover
-          </NavLink>
-          <NavLink href="/settings" isActive={router.pathname === "/settings"}>
+          <NavLink isActive={router.pathname === "/buddies"}>Buddies</NavLink>
+          <NavLink isActive={router.pathname === "/discover"}>Discover</NavLink>
+          <NavLink
+            handleClick={() => setSettings(true)}
+            isActive={router.pathname === "/settings"}
+          >
             Settings & Privacy
           </NavLink>
         </div>
