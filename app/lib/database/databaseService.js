@@ -5,6 +5,7 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
+import { useState } from "react";
 
 async function completeSignUp(user, uid) {
   const newDocRef = doc(appFirestore, user.email, uid);
@@ -25,30 +26,30 @@ async function completeSignUp(user, uid) {
     return { success: false, error: error.message };
   }
 }
+function useUserSession() {
+  const [userDetails, setUserDetails] = useState({});
+  async function getUserDetails() {
+    const user = appAuth.currentUser;
+    if (user == null) {
+      throw new Error("User not found!");
+    }
 
-async function getUserDetails() {
-  const user = appAuth.currentUser;
-  if (user == null) {
-    throw new Error("User not found!");
+    const userEmail = user.email;
+    const userUid = user.uid;
+    console.log("this is" + userUid);
+    const owner = doc(appFirestore, userEmail, userUid);
+
+    const ownerSnap = await getDoc(owner);
+    if (ownerSnap.exists()) {
+      console.log("Document data:", ownerSnap.data());
+      setUserDetails(ownerSnap.data());
+    } else {
+      throw new Error(`Session with ID ${userUid} does not exist`);
+    }
   }
-
-  const userEmail = user.email;
-  const userUid = user.uid;
-  console.log("this is" + userUid);
-  const owner = doc(appFirestore, `${userEmail}/${userUid}`);
-
-  const ownerSnap = await getDoc(owner);
-  if (!ownerSnap.exists()) {
-    console.log("Document data:", ownerSnap.data());
-    return ownerSnap.data();
-  } else {
-    throw new Error(`Session with ID ${userUid} does not exist`);
-  }
+  return { userDetails, getUserDetails };
 }
-
-
-
-export { completeSignUp, getUserDetails };
+export { completeSignUp, useUserSession };
 
 // const docRef = doc(db, "cities", "SF");
 // const docSnap = await getDoc(docRef);

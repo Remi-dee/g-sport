@@ -6,17 +6,22 @@ import Settings from "./Settings_comp";
 import { useStatetContext } from "../lib/stateContext";
 import { useEffect } from "react";
 import { useInterestContext } from "../lib/interestContext";
-import { getUserDetails } from "../lib/database/databaseService";
+import { useUserSession } from "../lib/database/databaseService";
+import { data } from "autoprefixer";
 const Profile = () => {
   // Replace these dummy data with actual user data fetched from your database
   const { settings, setSettings } = useStatetContext();
   const { userData, setUserData } = useStatetContext();
   const { interest, setInterest } = useInterestContext();
-
+  const { userDetails, getUserDetails } = useUserSession();
+  async function handleUserDetails() {
+    return await getUserDetails();
+  }
   useEffect(() => {
-    const data = getUserDetails();
-    setUserData(data);
-  }, [setUserData]);
+    getUserDetails();
+    console.log(userDetails);
+   
+  }, [userDetails]);
 
   return (
     <div>
@@ -45,8 +50,8 @@ const Profile = () => {
             </div>
             <div className="text-center">
               {/* Replace these dummy data with actual user data */}
-              <h2 className="text-2xl font-bold">{userData.username}</h2>
-              <p className="text-gray-600">{userData.phoneNumber}</p>
+              <h2 className="text-2xl font-bold">{userDetails.username}</h2>
+              <p className="text-gray-600">{userDetails.phoneNumber}</p>
             </div>
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Interests</h3>
