@@ -159,7 +159,7 @@ function SignUp() {
                   <Button
                     type="submit"
                     variant="secondary"
-                    className=" w-full "
+                    className={` w-full  ${isRegistered ? "mt-4" : ""}`}
                   >
                     {isRegistered ? "Continue" : "Next"}
                   </Button>

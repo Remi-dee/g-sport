@@ -15,8 +15,8 @@ function InterestForm() {
   ];
 
   return (
-    <div>
-      <div className="md:mt-8 mt-5  text-center max-w-full">
+    <div className="mb-4">
+      <div className="md:mt-8 mt-5  text-center max-w-full ">
         <p className="text-xl underline underline-offset-3 text-gray-500">
           Pick Your Interest
         </p>
