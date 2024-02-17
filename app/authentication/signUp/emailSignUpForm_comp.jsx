@@ -52,6 +52,29 @@ function EmailRegisterForm({ formData, handleChange }) {
 
         <div className="flex flex-col gap-1">
           <label
+            htmlFor="tel"
+            className="block text-sm text-start font-medium text-gray-700"
+          >
+            Phone <span className="text-sm text-gray-400">(optional)</span>
+          </label>
+
+          <div className="w-full   gap-1 inline-flex">
+            <input
+              value={formData.mobile}
+              onChange={handleChange}
+              name="mobile"
+              required
+              id="fullname"
+              type="text"
+              autoComplete="on"
+              className=" text-zinc-400 py-3 px-2   text-base font-normal w-full leading-normal bg-white border border-neutral-300"
+              placeholder="Enter your mobile number"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label
             htmlFor="password"
             className="block text-sm text-start font-medium text-gray-700"
           >

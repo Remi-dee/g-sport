@@ -20,7 +20,7 @@ function SignUp() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    phoneNumber: "",
+    mobile: "",
     password: "",
   });
   const [showPhoneForm, setShowPhoneForm] = useState(false);
@@ -39,6 +39,7 @@ function SignUp() {
     const formDataObject = {
       username: formData.username,
       email: formData.email,
+      mobile: formData.mobile,
       password: formData.password,
     };
     if (isRegistered && interest) {
@@ -77,24 +78,24 @@ function SignUp() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex pb-4 relative rounded-[30px]">
+      <div className="flex pb-4 relative ">
         <div className="">
           <Image
             width={null}
             height={null}
-            className="w-[400px] h-[650px] rounded-[30px]"
+            className="w-[450px] h-[760px] rounded-[30px] rounded-br-[0px]"
             src={sideImage}
             alt=""
           />
         </div>
-        <div className="flex flex-col w-[420px] relative py-8 px-6 h-[650px] bg-white items-center rounded-[30px]">
+        <div className="flex flex-col w-[450px] relative py-8 px-6 h-[760px] bg-white items-center rounded-bl-[0px] rounded-[30px]">
           <div className=" text-center ">
             <div className="gap-[5px] ">
               <div className=" h-12 flex items-center justify-center ">
                 <Image
                   width={50}
                   height={50}
-                  alt="Sign in with Google"
+                  alt="Sign in with Phone"
                   src={WaterMark}
                   className=""
                 />
