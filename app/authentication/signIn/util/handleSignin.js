@@ -14,6 +14,7 @@ const handleSignIn = async ({ email, password }) => {
     return { success: true, user };
   } catch (error) {
     console.error("Error signing in:", error.message);
+    alert(`Error signing in:", ${ error.message}`);
     return { success: false, error: error.message };
     // Handle the error, display a message, etc.
   }

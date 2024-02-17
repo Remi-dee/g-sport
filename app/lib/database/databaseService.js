@@ -1,5 +1,5 @@
 import { appAuth, appFirestore } from "@/app/fireBase/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 async function completeSignUp(user, uid) {
   const newDocRef = doc(appFirestore, user.email, user.uid);

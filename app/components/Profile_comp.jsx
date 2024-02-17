@@ -3,16 +3,20 @@ import Image from "next/image";
 import Oval from "../../public/assests/avatars/Oval.png";
 import Cover from "../../public/assests/images/backgrounds/ProfileCover.jpg";
 import Settings from "./Settings_comp";
-import { usestatetContext } from "../lib/stateContext";
+import { useStatetContext } from "../lib/stateContext";
+import { useEffect } from "react";
+import { useInterestContext } from "../lib/interestContext";
+import { getUserDetails } from "../lib/database/databaseService";
 const Profile = () => {
   // Replace these dummy data with actual user data fetched from your database
-  const { settings, setSettings } = usestatetContext();
+  const { settings, setSettings } = useStatetContext();
+  const { userData, setUserData } = useStatetContext();
+  const { interest, setInterest } = useInterestContext();
 
-  const userData = {
-    username: "JohnDoe",
-    phoneNumber: "123-456-7890",
-    interests: ["Football", "Basketball"],
-  };
+  useEffect(() => {
+    const data = getUserDetails();
+    setUserData(data);
+  }, [setUserData]);
 
   return (
     <div>
@@ -47,7 +51,7 @@ const Profile = () => {
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Interests</h3>
               <ul className="flex flex-wrap gap-2">
-                {userData.interests.map((interest, index) => (
+                {interest.map((interest, index) => (
                   <li
                     key={index}
                     className="bg-gray-200 px-2 py-1 rounded text-sm text-gray-700"
