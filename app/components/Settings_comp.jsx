@@ -10,6 +10,8 @@ function Settings() {
   const [newEmail, setNewEmail] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const userEmail = appAuth.currentUser.email;
+  const userName = appAuth.currentUser.username
+  console.log(appAuth.currentUser)
   function handleChangePassword() {
     // Implement logic for changing password
   }
@@ -42,7 +44,7 @@ function Settings() {
         <div className="flex justify-between">
           <label className="block text-sm text-gray-600">Change Username</label>
 
-          <p className="text-sm text-gray-400">{"johndoe"}</p>
+          <p className="text-sm text-gray-400">{userName}</p>
         </div>
 
         <input

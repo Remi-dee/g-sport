@@ -18,7 +18,7 @@ const handleSignUp = async ({ email, mobile, username, password }) => {
     const user = userCredential.user;
     const isVerified = await handleEmailVerification(user);
     if (user && isVerified.success) {
-      await updateProfile(user, { displayName: username });
+      await updateProfile(user, { displayName: username, phoneNumber: mobile });
 
       const newUser = {
         username,
@@ -39,8 +39,6 @@ const handleSignUp = async ({ email, mobile, username, password }) => {
     return { success: false, error: error.message };
   }
 };
-
-
 
 const handleEmailVerification = async (user) => {
   try {
@@ -85,6 +83,5 @@ async function authSignUp(firstname, lastname, email, password, username) {
     return { success: false, error: error.message };
   }
 }
-
 
 export { handleSignUp };
