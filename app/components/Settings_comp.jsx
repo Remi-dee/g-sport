@@ -2,18 +2,26 @@
 
 import React, { useState } from "react";
 import { useStatetContext } from "../lib/stateContext";
+import { handleEmailUpdate } from "../lib/database/authService";
+import { appAuth } from "../fireBase/firebase";
 
 function Settings() {
   const [newPassword, setNewPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newUsername, setNewUsername] = useState("");
-
+  const userEmail = appAuth.currentUser.email;
   function handleChangePassword() {
     // Implement logic for changing password
   }
 
-  function handleUpdateEmail() {
+  async function handleUpdateEmail(e) {
     // Implement logic for updating email
+    e.preventDefault();
+    alert(newEmail);
+    const emailUpdated = await handleEmailUpdate(newEmail);
+    if (emailUpdated) {
+      alert("Email successfully updated");
+    }
   }
 
   function handleUpdateUsername() {
@@ -29,8 +37,7 @@ function Settings() {
       <h2 className="text-3xl font-bold mb-6">Settings & Privacy</h2>
 
       {/* UI elements for updating username */}
-     
-     
+
       <div className="my-4">
         <div className="flex justify-between">
           <label className="block text-sm text-gray-600">Change Username</label>
@@ -58,7 +65,7 @@ function Settings() {
         <div className="flex justify-between">
           <label className="block text-sm text-gray-600">Change Email</label>
 
-          <p className="text-sm text-gray-400">{"johndoe@gmail.com"}</p>
+          <p className="text-sm text-gray-400">{userEmail}</p>
         </div>
         <input
           type="email"

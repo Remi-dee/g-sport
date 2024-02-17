@@ -1,8 +1,13 @@
 import { appAuth, appFirestore } from "@/app/fireBase/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 
 async function completeSignUp(user, uid) {
-  const newDocRef = doc(appFirestore, user.email, user.uid);
+  const newDocRef = doc(appFirestore, user.email, uid);
 
   const dataToSet = {
     username: user.username,
@@ -29,7 +34,7 @@ async function getUserDetails() {
 
   const userEmail = user.email;
   const userUid = user.uid;
-
+  console.log("this is" + userUid);
   const owner = doc(appFirestore, `${userEmail}/${userUid}`);
 
   const ownerSnap = await getDoc(owner);
@@ -40,6 +45,8 @@ async function getUserDetails() {
     throw new Error(`Session with ID ${userUid} does not exist`);
   }
 }
+
+
 
 export { completeSignUp, getUserDetails };
 
