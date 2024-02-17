@@ -18,6 +18,7 @@ const handleSignUp = async ({ email, mobile, username, password }) => {
     const user = userCredential.user;
     const isVerified = await handleEmailVerification(user);
     if (user && isVerified.success) {
+      console.log("here is the number", mobile)
       await updateProfile(user, { displayName: username, phoneNumber: mobile });
 
       const newUser = {
