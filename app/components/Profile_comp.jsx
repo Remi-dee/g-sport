@@ -25,7 +25,7 @@ const Profile = () => {
         />
       </div>
 
-      <div className="container mx-auto p-8 bg-white rounded shadow-lg -mt-16">
+      <div className="container mx-auto p-8 bg-white  rounded-md shadow-lg -mt-16">
         {!settings && (
           <>
             {" "}
