@@ -1,12 +1,7 @@
-
 import { appAuth, appFirestore } from "@/app/fireBase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-
-
-
 async function completeSignUp(user, uid) {
- 
   const newDocRef = doc(appFirestore, user.email, user.uid);
 
   const dataToSet = {
@@ -26,37 +21,34 @@ async function completeSignUp(user, uid) {
   }
 }
 
-
-
 async function getUserDetails() {
   const user = appAuth.currentUser;
   if (user == null) {
     throw new Error("User not found!");
   }
 
-  const userEmail = user.email
-  const userUid = user.uid
+  const userEmail = user.email;
+  const userUid = user.uid;
 
   const owner = doc(appFirestore, `${userEmail}/${userUid}`);
 
   const ownerSnap = await getDoc(owner);
   if (!ownerSnap.exists()) {
+    console.log("Document data:", ownerSnap.data());
+    return ownerSnap.data();
+  } else {
     throw new Error(`Session with ID ${userUid} does not exist`);
-  }
-
-  try {
-    const sessionId = codersSnap.data().sessionId;
-
-    const userSession = doc(coders, `SESSION/${sessionId}`);
-
-    const sessionData = await getDoc(userSession);
-    onSnapshot(userSession, (querySnapShot) => {
-      const docData = querySnapShot.data();
-      setStoreSession(docData);
-    });
-  } catch (error) {
-    console.error("Error retrieving document: ", error);
   }
 }
 
-export { completeSignUp };
+export { completeSignUp, getUserDetails };
+
+// const docRef = doc(db, "cities", "SF");
+// const docSnap = await getDoc(docRef);
+
+// if (docSnap.exists()) {
+//   console.log("Document data:", docSnap.data());
+// } else {
+//   // docSnap.data() will be undefined in this case
+//   console.log("No such document!");
+// }
