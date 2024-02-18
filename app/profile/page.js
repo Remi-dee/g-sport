@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 import { useStatetContext } from "../lib/context/stateContext";
 import { useAuthContext } from "../lib/context/authContext";
-import MobileNav from "../components/mobileNav";
+import MobileNav from "@/app/components/mobileNav";
 
 function ProfilePage({ userData }) {
   const router = useRouter();
