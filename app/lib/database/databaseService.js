@@ -1,5 +1,7 @@
+"use client"
+
 import { appAuth, appFirestore } from "@/app/fireBase/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -8,7 +10,7 @@ import {
 import { useState } from "react";
 
 async function completeSignUp(user, uid) {
-  const newDocRef = doc(appFirestore, user.email, uid);
+  const newDocRef = doc(appFirestore, uid, user.username);
 
   const dataToSet = {
     username: user.username,
@@ -26,7 +28,7 @@ async function completeSignUp(user, uid) {
     return { success: false, error: error.message };
   }
 }
-function useUserSession() {
+function UseUserSession() {
   const [userDetails, setUserDetails] = useState({});
   async function getUserDetails() {
     const user = appAuth.currentUser;
@@ -37,7 +39,7 @@ function useUserSession() {
     const userEmail = user.email;
     const userUid = user.uid;
     console.log("this is" + userUid);
-    const owner = doc(appFirestore, userEmail, userUid);
+    const owner = doc(appFirestore, userUid, user.displayName);
 
     const ownerSnap = await getDoc(owner);
     if (ownerSnap.exists()) {
@@ -49,14 +51,24 @@ function useUserSession() {
   }
   return { userDetails, getUserDetails };
 }
-export { completeSignUp, useUserSession };
 
-// const docRef = doc(db, "cities", "SF");
-// const docSnap = await getDoc(docRef);
+async function updateUserDetails(newEmail) {
+  const user = appAuth.currentUser;
+  if (user == null) {
+    throw new Error("User not found!");
+  }
 
-// if (docSnap.exists()) {
-//   console.log("Document data:", docSnap.data());
-// } else {
-//   // docSnap.data() will be undefined in this case
-//   console.log("No such document!");
-// }
+  const owner = doc(appFirestore, user.uid, user.displayName);
+
+  try {
+    const sessionData = {
+      email: newEmail,
+    };
+    const docRef = await updateDoc(owner, sessionData);
+    return { success: true };
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+}
+
+export { completeSignUp, UseUserSession, updateUserDetails };

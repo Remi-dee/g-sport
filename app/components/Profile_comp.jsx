@@ -3,25 +3,27 @@ import Image from "next/image";
 import Oval from "../../public/assests/avatars/Oval.png";
 import Cover from "../../public/assests/images/backgrounds/ProfileCover.jpg";
 import Settings from "./Settings_comp";
-import { useStatetContext } from "../lib/stateContext";
+import { useStateContext } from "../lib/stateContext";
 import { useEffect } from "react";
 import { useInterestContext } from "../lib/interestContext";
-import { useUserSession } from "../lib/database/databaseService";
+import {
+  UseUserSession,
+  useUserSession,
+} from "../lib/database/databaseService";
 import { data } from "autoprefixer";
 const Profile = () => {
   // Replace these dummy data with actual user data fetched from your database
-  const { settings, setSettings } = useStatetContext();
-  const { userData, setUserData } = useStatetContext();
+  const { settings, setSettings } = useStateContext();
+  const { userData, setUserData } = useStateContext();
   const { interest, setInterest } = useInterestContext();
-  const { userDetails, getUserDetails } = useUserSession();
+  const { userDetails, getUserDetails } = UseUserSession();
   async function handleUserDetails() {
     return await getUserDetails();
   }
   useEffect(() => {
     getUserDetails();
-    console.log(userDetails);
-   
-  }, [userDetails]);
+    if (userDetails) setUserData(userDetails);
+  }, []);
 
   return (
     <div>

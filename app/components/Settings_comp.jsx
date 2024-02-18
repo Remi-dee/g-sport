@@ -1,37 +1,60 @@
-// Settings.js
-
-import React, { useState } from "react";
-import { useStatetContext } from "../lib/stateContext";
-import { handleEmailUpdate } from "../lib/database/authService";
+import React, { useEffect, useState } from "react";
+import { useStateContext } from "../lib/stateContext";
+import {
+  UpdateUsername,
+  handleEmailUpdate,
+  handlePasswordUpdate,
+  logoutUser,
+} from "../lib/database/authService";
 import { appAuth } from "../fireBase/firebase";
+import { UseUserSession } from "../lib/database/databaseService";
+import { handlePasswordReset } from "../authentication/forgotPassword/util/forgotPassword";
+import { useRouter } from "next/navigation";
 
 function Settings() {
   const [newPassword, setNewPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newUsername, setNewUsername] = useState("");
-  const userEmail = appAuth.currentUser.email;
-  const userName = appAuth.currentUser.username
-  console.log(appAuth.currentUser)
-  function handleChangePassword() {
+  const router = useRouter();
+  const { userDetails, getUserDetails } = UseUserSession();
+
+  useEffect(() => {
+    getUserDetails();
+  }, [userDetails]);
+
+  async function handleChangePassword() {
     // Implement logic for changing password
+    e.preventDefault();
+    const passwordUpdated = await handlePasswordUpdate(newPassword);
+    if (passwordUpdated) {
+      alert("Password successfully updated");
+    }
   }
 
   async function handleUpdateEmail(e) {
     // Implement logic for updating email
     e.preventDefault();
-    alert(newEmail);
+
     const emailUpdated = await handleEmailUpdate(newEmail);
     if (emailUpdated) {
       alert("Email successfully updated");
     }
   }
 
-  function handleUpdateUsername() {
+  async function handleUpdateUsername(e) {
     // Implement logic for updating username
+    e.preventDefault();
+    const passwordUpdated = await UpdateUsername(newUsername);
   }
 
-  function handleLogout() {
-    // Implement logic for logout
+  async function handleLogout(e) {
+    e.preventDefault();
+    const isLogout = await logoutUser();
+    if (isLogout) {
+      alert("Bye, Get Back Soon!");
+
+      router.push("/");
+    }
   }
 
   return (
@@ -44,7 +67,7 @@ function Settings() {
         <div className="flex justify-between">
           <label className="block text-sm text-gray-600">Change Username</label>
 
-          <p className="text-sm text-gray-400">{userName}</p>
+          <p className="text-sm text-gray-400">{userDetails.username}</p>
         </div>
 
         <input
@@ -67,7 +90,7 @@ function Settings() {
         <div className="flex justify-between">
           <label className="block text-sm text-gray-600">Change Email</label>
 
-          <p className="text-sm text-gray-400">{userEmail}</p>
+          <p className="text-sm text-gray-400">{userDetails.email}</p>
         </div>
         <input
           type="email"

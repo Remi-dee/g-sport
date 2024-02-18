@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useStatetContext, } from "../lib/stateContext";
+import { useStateContext,  } from "../lib/stateContext";
 
 function Navigation() {
   const router = useRouter();
   const currentPath =
     typeof window !== "undefined" ? window.location.pathname : "";
   const isProfileActive = currentPath === "/profile";
-  const {settings, setSettings} = useStatetContext()
+  const {settings, setSettings} = useStateContext()
 
   function NavLink({ handleClick, children, isActive }) {
     console.log(isProfileActive);
