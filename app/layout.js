@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { InterestContextProvider } from "./lib/interestContext";
-import {  StateContextProvider } from "./lib/stateContext";
+import { InterestContextProvider } from "./lib/context/interestContext";
+import { StateContextProvider } from "./lib/context/stateContext";
+import { AuthProvider } from "./lib/context/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,11 +14,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <InterestContextProvider>
-        <StateContextProvider>
-          <body className={inter.className}>{children}</body>
-        </StateContextProvider>
-      </InterestContextProvider>
+      <AuthProvider>
+        <InterestContextProvider>
+          <StateContextProvider>
+            <body className={inter.className}>{children}</body>
+          </StateContextProvider>
+        </InterestContextProvider>
+      </AuthProvider>
     </html>
   );
 }

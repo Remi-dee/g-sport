@@ -1,7 +1,13 @@
-import { appAuth } from "@/app/fireBase/firebase";
-import { signOut, updateEmail, updatePassword, updateProfile } from "firebase/auth";
+import { appAuth, appFirestore } from "@/app/fireBase/firebase";
+import {
+  signOut,
+  updateEmail,
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
 import { UseUserSession, updateUserDetails } from "./databaseService";
-import { useStateContext } from "../stateContext";
+import { useStateContext } from "../context/stateContext";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 
 async function handleEmailUpdate(newEmail) {
   try {
@@ -25,16 +31,15 @@ async function handlePasswordUpdate(newPassword) {
   }
 }
 
-const UpdateUsername = async ({ username, userData }) => {
-  
+const UpdateUsername = async (username, userData) => {
   try {
     const user = appAuth.currentUser;
-
+    const owner = doc(appFirestore, user.uid, user.displayName);
     if (user) {
       await updateProfile(user, { displayName: username });
 
       const { email, phoneNumber } = userData;
-      console.log(userData);
+     
 
       const dataToUpdate = {
         username: username,
@@ -42,8 +47,8 @@ const UpdateUsername = async ({ username, userData }) => {
         phoneNumber: phoneNumber,
         createdAt: new Date(),
       };
-      await setDoc(newDocRef, dataToSet);
-      console.log("Document successfully Updated.");
+      await updateDoc(owner, dataToUpdate);
+    
       return { success: true };
     }
   } catch (error) {
@@ -52,6 +57,26 @@ const UpdateUsername = async ({ username, userData }) => {
     return { success: false, error: error.message };
   }
 };
+
+async function completeSignUp(user, uid) {
+  const newDocRef = doc(appFirestore, uid, user.username);
+
+  const dataToSet = {
+    username: user.username,
+    email: user.email,
+    phoneNumber: user.mobile,
+    createdAt: new Date(),
+  };
+
+  try {
+    await setDoc(newDocRef, dataToSet);
+  
+    return { success: true };
+  } catch (error) {
+    console.error("Error writing document: ", error);
+    return { success: false, error: error.message };
+  }
+}
 
 async function logoutUser() {
   try {
@@ -62,4 +87,10 @@ async function logoutUser() {
   }
 }
 
-export { handleEmailUpdate, handlePasswordUpdate, logoutUser, UpdateUsername };
+export {
+  handleEmailUpdate,
+  handlePasswordUpdate,
+  logoutUser,
+  UpdateUsername,
+  completeSignUp,
+};

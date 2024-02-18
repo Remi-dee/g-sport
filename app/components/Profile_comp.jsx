@@ -3,9 +3,9 @@ import Image from "next/image";
 import Oval from "../../public/assests/avatars/Oval.png";
 import Cover from "../../public/assests/images/backgrounds/ProfileCover.jpg";
 import Settings from "./Settings_comp";
-import { useStateContext } from "../lib/stateContext";
+import { useStateContext } from "../lib/context/stateContext";
 import { useEffect } from "react";
-import { useInterestContext } from "../lib/interestContext";
+import { useInterestContext } from "../lib/context/interestContext";
 import {
   UseUserSession,
   useUserSession,
@@ -22,8 +22,7 @@ const Profile = () => {
   }
   useEffect(() => {
     getUserDetails();
-    if (userDetails) setUserData(userDetails);
-  }, []);
+  }, [userDetails]);
 
   return (
     <div>
@@ -71,7 +70,7 @@ const Profile = () => {
           </>
         )}
 
-        {settings && <Settings />}
+        {settings && <Settings userDetails={userDetails} />}
       </div>
     </div>
   );

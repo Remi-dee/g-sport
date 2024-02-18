@@ -1,6 +1,8 @@
 import { appAuth, firebaseConfig } from "@/app/fireBase/firebase";
+import { completeSignUp } from "@/app/lib/database/authService";
 import {
-  completeSignUp,
+ 
+ 
   useUserSession,
 } from "@/app/lib/database/databaseService";
 import { initializeApp } from "firebase/app";
@@ -12,7 +14,7 @@ import {
 
 const handleSignUp = async ({ email, mobile, username, password }) => {
   try {
-    console.log(email, "see it", password);
+  
     const userCredential = await createUserWithEmailAndPassword(
       appAuth,
       email,
@@ -21,7 +23,7 @@ const handleSignUp = async ({ email, mobile, username, password }) => {
     const user = userCredential.user;
     const isVerified = await handleEmailVerification(user);
     if (user && isVerified.success) {
-      console.log("here is the number", mobile);
+    
       await updateProfile(user, { displayName: username, phoneNumber: mobile });
 
       const newUser = {

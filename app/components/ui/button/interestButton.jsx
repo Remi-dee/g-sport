@@ -1,4 +1,4 @@
-import { useInterestContext } from "@/app/lib/interestContext";
+import { useInterestContext } from "@/app/lib/context/interestContext";
 import React, { useState } from "react";
 
 function InterestButton({ index, buttonText }) {
@@ -10,7 +10,7 @@ function InterestButton({ index, buttonText }) {
     {
       !isSelected ? setIsSelected(true) : setIsSelected(false);
     }
-    console.log(isSelected);
+  
   };
 
   return (

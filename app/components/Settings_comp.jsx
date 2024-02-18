@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useStateContext } from "../lib/stateContext";
+import { useStateContext } from "../lib/context/stateContext";
 import {
   UpdateUsername,
   handleEmailUpdate,
@@ -11,18 +11,13 @@ import { UseUserSession } from "../lib/database/databaseService";
 import { handlePasswordReset } from "../authentication/forgotPassword/util/forgotPassword";
 import { useRouter } from "next/navigation";
 
-function Settings() {
+function Settings({ userDetails }) {
   const [newPassword, setNewPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const router = useRouter();
-  const { userDetails, getUserDetails } = UseUserSession();
-  const { userData, setUserData } = useStateContext();
-  useEffect(() => {
-    getUserDetails();
-  }, [userDetails]);
 
-  async function handleChangePassword() {
+  async function handleChangePassword(e) {
     // Implement logic for changing password
     e.preventDefault();
     const passwordUpdated = await handlePasswordUpdate(newPassword);
@@ -35,7 +30,7 @@ function Settings() {
     // Implement logic for updating email
     e.preventDefault();
 
-    const emailUpdated = await handleEmailUpdate(newEmail,);
+    const emailUpdated = await handleEmailUpdate(newEmail);
     if (emailUpdated) {
       alert("Email successfully updated");
     }
@@ -44,12 +39,15 @@ function Settings() {
   async function handleUpdateUsername(e) {
     // Implement logic for updating username
     e.preventDefault();
-    const passwordUpdated = await UpdateUsername(newUsername, userData);
+
+    const usernameUpdated = await UpdateUsername(newUsername, userDetails);
+    if (usernameUpdated) alert("Username successfully updated");
   }
 
   async function handleLogout(e) {
     e.preventDefault();
     const isLogout = await logoutUser();
+    localStorage.removeItem("userSession");
     if (isLogout) {
       alert("Bye, Get Back Soon!");
 

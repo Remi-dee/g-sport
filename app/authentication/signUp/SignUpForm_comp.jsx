@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/button/Button";
 import EmailRegisterForm from "./EmailSignUpForm_comp";
 import PhoneRegisterForm from "./PhoneSignUpForm_comp";
-import { useInterestContext } from "@/app/lib/interestContext";
+import { useInterestContext } from "@/app/lib/context/interestContext";
 import InterestForm from "@/app/components/Interest_comp";
 import { signupFormValidation } from "./util/signupFormValidation";
 
@@ -52,9 +52,10 @@ function SignUp() {
     if (Object.keys(formErrors).length === 0) {
       try {
         const userCred = await handleSignUp(formDataObject);
-        console.log("here is" + userCred.success);
+   
         if (userCred.success) {
           setIsRegistered(true);
+         
         }
       } catch (error) {
         console.error("Error in handleSignUp:", error);
@@ -79,7 +80,7 @@ function SignUp() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex pb-4 relative ">
-        <div className="">
+        <div className="hidden md:flex">
           <Image
             width={null}
             height={null}

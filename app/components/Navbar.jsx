@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useStateContext,  } from "../lib/stateContext";
+import { useStateContext } from "../lib/context/stateContext";
 
 function Navigation() {
   const router = useRouter();
   const currentPath =
     typeof window !== "undefined" ? window.location.pathname : "";
   const isProfileActive = currentPath === "/profile";
-  const {settings, setSettings} = useStateContext()
+  const { settings, setSettings } = useStateContext();
 
   function NavLink({ handleClick, children, isActive }) {
-    console.log(isProfileActive);
+   
     return (
       <button onClick={handleClick}>
         <span
@@ -30,7 +30,7 @@ function Navigation() {
         <div className="text-white font-bold text-xl">
           <Link href="/">G-Sport</Link>
         </div>
-        <div className="flex space-x-4">
+        <div className="hidden md:flex space-x-4">
           {/* Display for larger screens (computer) */}
           <NavLink
             handleClick={() => setSettings(false)}

@@ -36,7 +36,7 @@ function PhoneRegisterForm({ formData, handleChange }) {
     e.preventDefault();
     try {
       const formattedPhoneNumber = `+${phoneNumber.replace(/\D/g, "")}`;
-      console.log(formattedPhoneNumber);
+
       const confirmation = await signInWithPhoneNumber(
         appAuth,
         formattedPhoneNumber,
@@ -55,7 +55,7 @@ function PhoneRegisterForm({ formData, handleChange }) {
   const handleOtpSubmit = async () => {
     try {
       const confirm = await confirmationResult.confirm(otp);
-      console.log("here is" + confirm);
+
       setOtp("");
       router.push("/profile");
     } catch (error) {

@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/button/Button";
 import PhoneRegisterForm from "../signUp/PhoneSignUpForm_comp";
+import { appAuth } from "@/app/fireBase/firebase";
 function SignIn() {
   const router = useRouter();
   const [showPhoneForm, setShowPhoneForm] = useState(false);
@@ -29,7 +30,7 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const user = appAuth.currentUser;
     const formDataObject = {
       email: formData.email,
       password: formData.password,
@@ -37,8 +38,9 @@ function SignIn() {
 
     try {
       const userCred = await handleSignIn(formDataObject);
-      console.log("here is" + userCred.success);
+
       if (userCred.success) {
+        localStorage.setItem("userSession", user.email);
         router.push("/profile");
       }
     } catch (error) {
