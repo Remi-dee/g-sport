@@ -27,7 +27,7 @@ function ProfilePage({ userData }) {
     <div className="relative">
       <Navigation />
       <Profile />
-      <div className="absolute md:hidden bottom-0 left-[22%]">
+      <div className="absolute md:hidden mb-0 bottom-0 left-[22%]">
         <MobileNav />
       </div>
     </div>
