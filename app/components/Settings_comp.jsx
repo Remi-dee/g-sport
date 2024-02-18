@@ -17,7 +17,7 @@ function Settings() {
   const [newUsername, setNewUsername] = useState("");
   const router = useRouter();
   const { userDetails, getUserDetails } = UseUserSession();
-
+  const { userData, setUserData } = useStateContext();
   useEffect(() => {
     getUserDetails();
   }, [userDetails]);
@@ -35,7 +35,7 @@ function Settings() {
     // Implement logic for updating email
     e.preventDefault();
 
-    const emailUpdated = await handleEmailUpdate(newEmail);
+    const emailUpdated = await handleEmailUpdate(newEmail,);
     if (emailUpdated) {
       alert("Email successfully updated");
     }
@@ -44,7 +44,7 @@ function Settings() {
   async function handleUpdateUsername(e) {
     // Implement logic for updating username
     e.preventDefault();
-    const passwordUpdated = await UpdateUsername(newUsername);
+    const passwordUpdated = await UpdateUsername(newUsername, userData);
   }
 
   async function handleLogout(e) {
