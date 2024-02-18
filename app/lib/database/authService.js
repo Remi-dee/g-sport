@@ -1,5 +1,5 @@
 import { appAuth } from "@/app/fireBase/firebase";
-import { signOut, updateEmail, updatePassword } from "firebase/auth";
+import { signOut, updateEmail, updatePassword, updateProfile } from "firebase/auth";
 import { UseUserSession, updateUserDetails } from "./databaseService";
 import { useStateContext } from "../stateContext";
 
