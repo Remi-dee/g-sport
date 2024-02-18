@@ -8,9 +8,10 @@ import { handleSignIn } from "./util/handleSignin";
 import { useState } from "react";
 
 import { useRouter } from "next/navigation";
-import Button from "@/app/components/ui/button/Button";
+
 import PhoneRegisterForm from "../signUp/PhoneSignUpForm_comp";
 import { appAuth } from "@/app/fireBase/firebase";
+import Button from "@/app/components/ui/button/Button";
 function SignIn() {
   const router = useRouter();
   const [showPhoneForm, setShowPhoneForm] = useState(false);
