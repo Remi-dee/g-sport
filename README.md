@@ -11,6 +11,10 @@ Visit the live version of G-Sport on [Here](https://g-sport.vercel.app/).
 ### Register with Verified Email 
 ![emailregisteration](https://github.com/Remi-dee/g-sport/assets/96704300/bfa7e877-0dec-4b35-9a44-4bcc05402cdc)
 
+### Log in with Email and Logout
+![logout   login registeration](https://github.com/Remi-dee/g-sport/assets/96704300/7bc787a3-e188-4af2-b8a6-50573e368d21)
+
+
 ## Features
 
 - **Login/Register:**
