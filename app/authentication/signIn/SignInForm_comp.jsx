@@ -1,27 +1,27 @@
+// Import necessary libraries and components
 import Image from "next/image";
 import Link from "next/link";
-
 import Phone from "../../../public/assests/icons/Phone.png";
-
 import waterMark from "@/public/assests/icons/waterMark.png";
 import { handleSignIn } from "./util/handleSignin";
 import { useState } from "react";
-
 import { useRouter } from "next/navigation";
-
 import PhoneRegisterForm from "../signUp/PhoneSignUpForm_comp";
 import { appAuth } from "@/app/fireBase/firebase";
 import Button from "@/app/components/ui/button/Button";
+
+// Define the SignIn component
 function SignIn() {
+  // Initialize state variables using the useState hook
   const router = useRouter();
   const [showPhoneForm, setShowPhoneForm] = useState(false);
- 
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  // Handle form input changes
   const handleChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -29,6 +29,7 @@ function SignIn() {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = appAuth.currentUser;
@@ -41,19 +42,23 @@ function SignIn() {
       const userCred = await handleSignIn(formDataObject);
 
       if (userCred.success) {
-        localStorage.setItem("userSession", user.email);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem("userSession", user.email);
+        }
         router.push("/profile");
       }
     } catch (error) {
       // Handle errors if needed
-      console.error("Error in handleSignUp:", userCred.error);
+      console.error("Error in handleSignIn:", userCred.error);
     }
   };
 
+  // Toggle between phone and email sign-in forms
   const toggleForm = () => {
     setShowPhoneForm(!showPhoneForm);
   };
 
+  // JSX representing the SignIn component
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex pb-4 relative font-lexend">
@@ -91,6 +96,7 @@ function SignIn() {
                 </div>
               </button>
               {showPhoneForm ? (
+                // Display phone sign-in form
                 <PhoneRegisterForm />
               ) : (
                 <>
@@ -148,6 +154,7 @@ function SignIn() {
                       </div>{" "}
                       <div className="text-start ">
                         <Link href="/?view=forgotpassword">
+                          {/* Display link to forgot password page */}
                           <span className="text-neutral-600 text-base font-normal  leading-tight">
                             Forgot Password?
                           </span>
@@ -157,6 +164,7 @@ function SignIn() {
                   </div>
 
                   <div>
+                    {/* Display "Continue" button for sign-in */}
                     <Button variant="secondary" className=" w-full">
                       Continue
                     </Button>
@@ -171,4 +179,5 @@ function SignIn() {
   );
 }
 
+// Export the SignIn component
 export default SignIn;
