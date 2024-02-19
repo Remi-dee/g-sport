@@ -2,16 +2,10 @@
 
 G-Sport is a mobile-friendly web application that connects sports enthusiasts, allowing them to record, network, and find like-minded people interested in various sports.
 
-## Table of Contents
+## Live Server
 
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Built With](#built-with)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+Visit the live version of G-Sport on [Here](https://g-sport.vercel.app/).
+
 
 ## Features
 
