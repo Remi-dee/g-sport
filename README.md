@@ -31,8 +31,7 @@ G-Sport is a mobile-friendly web application that connects sports enthusiasts, a
 - **Additional Features:**
   - Responsive design for both desktop and mobile.
   - Clean and well-commented code.
-  - Integration with a backend server (if applicable).
-  - Entity Relationship Diagram (ERD) for the database.
+  
 
 ## Getting Started
 
