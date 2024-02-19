@@ -6,6 +6,10 @@ G-Sport is a mobile-friendly web application that connects sports enthusiasts, a
 
 Visit the live version of G-Sport on [Here](https://g-sport.vercel.app/).
 
+## Demo
+
+### Register with Verified Email 
+![emailregisteration](https://github.com/Remi-dee/g-sport/assets/96704300/bfa7e877-0dec-4b35-9a44-4bcc05402cdc)
 
 ## Features
 
