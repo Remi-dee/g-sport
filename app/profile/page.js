@@ -5,12 +5,12 @@ import React from "react";
 import Profile from "../components/Profile_comp";
 import Navigation from "../components/Navbar";
 
-import { Modal } from "../lib/modal/modal";
 import { useRouter } from "next/navigation";
 
-import { useStatetContext } from "../lib/context/stateContext";
+
 import { useAuthContext } from "../lib/context/authContext";
-import MobileNav from "@/app/components/mobileNav";
+import MobileNav from "../components/MobileNav";
+
 
 function ProfilePage({ userData }) {
   const router = useRouter();
