@@ -95,7 +95,7 @@ function SignUp() {
             alt=""
           />
         </div>
-        <div className="flex flex-col w-[450px] relative py-8 px-6 h-[760px] bg-white items-center rounded-bl-[0px] rounded-[30px]">
+        <div className="-mt-[60px] md:mt-0 flex flex-col w-[450px] relative py-8 px-6 h-[760px] bg-white items-center rounded-bl-[0px] rounded-[30px]">
           <div className="text-center ">
             <div className="gap-[5px] ">
               <div className=" h-12 flex items-center justify-center ">

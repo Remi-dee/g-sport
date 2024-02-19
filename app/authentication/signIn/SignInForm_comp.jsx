@@ -42,7 +42,7 @@ function SignIn() {
       const userCred = await handleSignIn(formDataObject);
 
       if (userCred.success) {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           localStorage.setItem("userSession", user.email);
         }
         router.push("/profile");
@@ -61,8 +61,8 @@ function SignIn() {
   // JSX representing the SignIn component
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex pb-4 relative font-lexend">
-        <div className="flex flex-col w-[439px]  py-[60px] h-auto bg-white items-center ">
+      <div className="flex pb-4 relative font-lexend  md:max-w-full">
+        <div className="flex flex-col w-[720px]  py-[60px] h-auto  bg-white items-center ">
           <div className=" text-center ">
             <div className=" h-12 flex items-center justify-center ">
               <Image
