@@ -2,6 +2,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import SignIn from "./signIn/SignInForm_comp";
 import { Modal } from "../lib/modal/modal";
 import ForgotPassword from "./forgotPassword/ForgotPassword_comp";
+import { Suspense } from "react";
 
 
 function Authentication() {
@@ -9,7 +10,9 @@ function Authentication() {
   const router = useRouter();
 
   return (
-    <div className=" font-lexend">
+   
+    <Suspense>
+   <div className=" font-lexend">
       <>
         <div>
           {view == "signin" ? (
@@ -42,6 +45,7 @@ function Authentication() {
         </div>
       </>
     </div>
+    </Suspense>
   );
 }
 
