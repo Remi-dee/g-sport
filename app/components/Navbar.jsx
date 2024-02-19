@@ -10,16 +10,9 @@ function Navigation() {
   const { settings, setSettings } = useStateContext();
 
   function NavLink({ handleClick, children, isActive }) {
-   
     return (
       <button onClick={handleClick}>
-        <span
-          className={` hover:text-gray-300 ${
-            isActive ? "font-normal text-white " : "text-gray-500"
-          }`}
-        >
-          {children}
-        </span>
+        <span className="text-gray-500 hover:text-gray-300 ">{children}</span>
       </button>
     );
   }
