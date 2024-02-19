@@ -40,10 +40,30 @@ G-Sport is a mobile-friendly web application that connects sports enthusiasts, a
 - Node.js and npm installed
 - (Optional) Backend server set up if using a server (e.g., Node.js/Express, Django, etc.)
 
-### Installation
+### RUNNING SERVER
+## To run the project locally
 
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/your-username/g-sport.git
    cd g-sport
+
+2. Install Dependencies:   
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the Server:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
+   
