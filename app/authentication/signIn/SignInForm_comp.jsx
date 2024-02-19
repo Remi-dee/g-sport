@@ -15,7 +15,7 @@ import Button from "@/app/components/ui/button/Button";
 function SignIn() {
   const router = useRouter();
   const [showPhoneForm, setShowPhoneForm] = useState(false);
-
+ 
 
   const [formData, setFormData] = useState({
     email: "",
@@ -41,12 +41,7 @@ function SignIn() {
       const userCred = await handleSignIn(formDataObject);
 
       if (userCred.success) {
-      
-      
-        if (typeof window !== 'undefined') {
-          
-          localStorage.setItem("userSession", user.email);
-        }
+        localStorage.setItem("userSession", user.email);
         router.push("/profile");
       }
     } catch (error) {

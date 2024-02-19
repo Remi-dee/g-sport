@@ -1,12 +1,11 @@
+// Import necessary libraries and components
 import Image from "next/image";
 import Link from "next/link";
 import sideImage from "@/public/assests/images/backgrounds/slideImage2.jpg";
 import Phone from "../../../public/assests/icons/Phone.png";
-
 import WaterMark from "@/public/assests/icons/waterMark.png";
 import { useState } from "react";
 import { handleSignUp } from "./util/handleSignup";
-
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/button/Button";
 import EmailRegisterForm from "./EmailSignUpForm_comp";
@@ -15,7 +14,9 @@ import { useInterestContext } from "@/app/lib/context/interestContext";
 import InterestForm from "@/app/components/Interest_comp";
 import { signupFormValidation } from "./util/signupFormValidation";
 
+// Define the SignUp component
 function SignUp() {
+  // Initialize state variables using the useState hook
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
@@ -27,6 +28,7 @@ function SignUp() {
   const [isRegistered, setIsRegistered] = useState(false);
   const { interest } = useInterestContext();
 
+  // Handle form input changes
   const handleChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -34,6 +36,7 @@ function SignUp() {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataObject = {
@@ -42,25 +45,26 @@ function SignUp() {
       mobile: formData.mobile,
       password: formData.password,
     };
+
+    // Redirect to the profile page if registered and interests selected
     if (isRegistered && interest) {
       router.push("/profile");
       return;
     }
 
+    // Validate form data and handle sign-up
     const formErrors = signupFormValidation(formDataObject);
-
     if (Object.keys(formErrors).length === 0) {
       try {
         const userCred = await handleSignUp(formDataObject);
-   
         if (userCred.success) {
           setIsRegistered(true);
-         
         }
       } catch (error) {
         console.error("Error in handleSignUp:", error);
       }
     } else {
+      // Display form errors as an alert
       const alertMessage = [
         formErrors.username && `Username: ${formErrors.username}`,
         formErrors.email && `Email: ${formErrors.email}`,
@@ -73,10 +77,12 @@ function SignUp() {
     }
   };
 
+  // Toggle between phone and email sign-up forms
   const toggleForm = () => {
     setShowPhoneForm(!showPhoneForm);
   };
 
+  // JSX representing the SignUp component
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex pb-4 relative ">
@@ -90,7 +96,7 @@ function SignUp() {
           />
         </div>
         <div className="flex flex-col w-[450px] relative py-8 px-6 h-[760px] bg-white items-center rounded-bl-[0px] rounded-[30px]">
-          <div className=" text-center ">
+          <div className="text-center ">
             <div className="gap-[5px] ">
               <div className=" h-12 flex items-center justify-center ">
                 <Image
@@ -111,6 +117,7 @@ function SignUp() {
 
             <div className="space-y-[22px]">
               {isRegistered ? (
+                // Display interest form after successful registration
                 <InterestForm />
               ) : (
                 <>
@@ -143,11 +150,13 @@ function SignUp() {
                   </div>
 
                   {showPhoneForm ? (
+                    // Display phone sign-up form
                     <PhoneRegisterForm
                       formData={formData}
                       handleChange={handleChange}
                     />
                   ) : (
+                    // Display email sign-up form
                     <EmailRegisterForm
                       formData={formData}
                       handleChange={handleChange}
@@ -157,6 +166,7 @@ function SignUp() {
               )}
               {!showPhoneForm && (
                 <div className="">
+                  {/* Display "Continue" button after successful registration */}
                   <Button
                     type="submit"
                     variant="secondary"
@@ -173,6 +183,7 @@ function SignUp() {
                 </span>
 
                 <Link href="/?view=signin">
+                  {/* Display link to login page */}
                   <span className="text-neutral-600 text-base font-normal underline leading-tight">
                     Login
                   </span>
@@ -186,4 +197,5 @@ function SignUp() {
   );
 }
 
+// Export the SignUp component
 export default SignUp;
