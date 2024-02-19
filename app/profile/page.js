@@ -7,22 +7,23 @@ import Navigation from "../components/Navbar";
 
 import { useRouter } from "next/navigation";
 
-
 import { useAuthContext } from "../lib/context/authContext";
 import MobileNav from "../components/MobileNav";
-
 
 function ProfilePage({ userData }) {
   const router = useRouter();
   const { currentUser } = useAuthContext();
-  const userSession = localStorage.getItem("userSession");
 
-  if (!userSession) {
-    router.push("/");
-    router.push("/?view=signin");
+  useEffect(() => {
+    const userSession = localStorage.getItem("userSession");
+    if (!userSession) {
+      router.push("/");
+      router.push("/?view=signin");
 
-    return;
-  }
+      return;
+    }
+  }, []);
+
   return (
     <div className="relative">
       <Navigation />
